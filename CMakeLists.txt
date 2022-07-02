@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.0)
 project(kOS.Nucleus C)
 
 set(CMAKE_C_STANDARD 99)
@@ -17,4 +17,4 @@ endif ()
 add_subdirectory(libc)
 add_subdirectory(Kernel)
 # TODO: Implement the 64 bit loader
-#add_subdirectory(Loader)
+add_subdirectory(Loader)

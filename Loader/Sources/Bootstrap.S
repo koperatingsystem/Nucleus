@@ -10,9 +10,19 @@
 .long FLAGS
 .long CHECKSUM
 
-.section .text
-.code32
+.section .bss
+.align 16
+stack_bottom:
+.skip 16384 # 16 KiB
+stack_top:
 
+.section .text
 .global _start
 .type _start, @function
 _start:
+	cli
+	mov	esp, stack_top
+    mov ebp, stack_top
+
+	push	ebx
+	call	lmain

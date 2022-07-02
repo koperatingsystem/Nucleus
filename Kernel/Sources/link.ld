@@ -9,7 +9,7 @@ SECTIONS
 
     .bootstrap :
     {
-        CMakeFiles/kOS.Kernel.dir/Sources/Kernel/Bootstrap.S.obj (.text)
+        Kernel/CMakeFiles/kOS.Kernel.dir/Sources/Bootstrap.S.obj (.text)
     }
 
     . += KERNEL_VMA;
@@ -17,7 +17,7 @@ SECTIONS
     .text : AT(ADDR(.text) - KERNEL_VMA)
     {
         _code = .;
-        *(EXCLUDE_FILE(CMakeFiles/kOS.Kernel.dir/Sources/Kernel/Bootstrap.S.obj) .text)
+        *(EXCLUDE_FILE(Kernel/CMakeFiles/kOS.Kernel.dir/Sources/Bootstrap.S.obj) .text)
         *(.rodata*)
         . = ALIGN(4096);
     }
