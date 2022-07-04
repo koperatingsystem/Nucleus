@@ -11,6 +11,6 @@ add_executable(kOS.Loader
 target_compile_options(kOS.Loader PRIVATE -m32 -Wall -Werror -ffreestanding)
 target_include_directories(kOS.Loader PRIVATE Includes)
 
-target_link_options(kOS.Loader PRIVATE -nostdlib)
+target_link_options(kOS.Loader PRIVATE -m32 -nostdlib)
 
 add_target_output_iso(kOS.Loader boot)
