@@ -9,6 +9,8 @@ add_executable(kOS.Kernel
     Sources/Bootstrap.S
 )
 
+include(iso-tools)
+
 target_compile_options(kOS.Kernel PRIVATE -m64 -mcmodel=large -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -Wall -Werror -ffreestanding)
 target_include_directories(kOS.Kernel PRIVATE Includes)
 
@@ -16,3 +18,5 @@ target_link_options(kOS.Kernel PRIVATE -nostdlib -T ${CMAKE_CURRENT_LIST_DIR}/So
 target_link_libraries(kOS.Kernel PRIVATE kOS.libc)
 
 set_target_properties(kOS.Kernel PROPERTIES LINK_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Sources/link.ld)
+
+add_target_output_iso(kOS.Kernel boot)

@@ -13,8 +13,11 @@ if (NOT ${CMAKE_GENERATOR} STREQUAL "Ninja" AND NOT ${CMAKE_GENERATOR} STREQUAL 
     message(FATAL_ERROR "kOS requires using Ninja or Ninja Multi-Config as the generator.")
 endif ()
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/Shared")
 
 add_subdirectory(libc)
 add_subdirectory(Kernel)
 # TODO: Implement the 64 bit loader
 add_subdirectory(Loader)
+
+add_file_iso(${CMAKE_CURRENT_LIST_DIR}/Shared/grub.cfg boot/grub/)
