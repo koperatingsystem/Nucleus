@@ -19,7 +19,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        sudo apt install xorriso clang grub-common ninja-build mtools -y
+        sudo apt install xorriso clang grub-common ninja-build mtools lld -y
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/Shared/kos-toolchain.cmake
