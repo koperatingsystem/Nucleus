@@ -33,8 +33,8 @@ stack_top:
 _start:
     cli
 
-    cmp %eax, 0x2BADB002
-    jne non_multiboot
+    //cmp %eax, 0x2BADB002
+    //jne non_multiboot
 
 	mov $stack_top, %esp
 	mov $stack_top, %ebp
@@ -42,14 +42,10 @@ _start:
 	push	%ebx
 	call	lmain
 
-non_multiboot:
-    cli
-1:  hlt
-    jmp 1
-
 .global _exit
 .type _exit, @function
 _exit:
     cli
 1:  hlt
     jmp 1
+

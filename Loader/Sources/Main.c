@@ -1,8 +1,9 @@
-#include <defs.h>
+#include <ASMDefs.h>
+#include <GDT.h>
 #include <multiboot.h>
 
 void lmain(const void* mb_struct) {
-    // TODO: Draw to framebuffer
+    GDTInstall();
 
     _exit();
 }
