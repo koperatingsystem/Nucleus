@@ -7,6 +7,7 @@ add_custom_target(
         build-iso
         ${GRUBMKRESCUE_PATH} -o boot.iso -v ${CMAKE_BINARY_DIR}/staging
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        DEPENDS ../Shared/grub.cfg
         COMMENT "Building a boot ISO"
 )
 
