@@ -17,8 +17,8 @@
 .long 0
 .long 0
 .long 0
-.long 640
-.long 480
+.long 1920
+.long 1080
 .long 32
 
 .section .bss
