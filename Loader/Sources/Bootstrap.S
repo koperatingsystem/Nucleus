@@ -1,3 +1,5 @@
+#include <multiboot2.h>
+
 .section .text
     .balign 8
     .align 4
@@ -56,8 +58,8 @@ stack_top:
 _start:
     cli
 
-    //cmp %eax, 0x2BADB002
-    //jne non_multiboot
+    cmp %eax, MULTIBOOT2_BOOTLOADER_MAGIC
+    je _exit
 
 	mov $stack_top, %esp
 	mov $stack_top, %ebp
