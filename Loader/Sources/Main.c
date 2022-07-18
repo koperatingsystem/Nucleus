@@ -1,6 +1,7 @@
 #include <ASMDefs.h>
 #include <GDT.h>
 #include <multiboot2.h>
+#include <string.h>
 
 void lmain(const void* mbi) {
     struct multiboot_tag* tag;
@@ -20,13 +21,11 @@ void lmain(const void* mbi) {
 
                 switch (tagfb->common.framebuffer_type) {
                     case MULTIBOOT_FRAMEBUFFER_TYPE_INDEXED: {
-                        unsigned best_distance, distance;
-                        struct multiboot_color* palette;
-
-                        palette = tagfb->framebuffer_palette;
+                        unsigned int distance;
+                        struct multiboot_color* palette = tagfb->framebuffer_palette;
 
                         color = 0;
-                        best_distance = 4 * 256 * 256;
+                        unsigned int best_distance = 4 * 256 * 256;
 
                         for (i = 0; i < tagfb->framebuffer_palette_num_colors; i++) {
                             distance = (0xff - palette[i].blue)
@@ -53,38 +52,35 @@ void lmain(const void* mbi) {
                         break;
                 }
 
-                for (i = 0; i < tagfb->common.framebuffer_width
-                    && i < tagfb->common.framebuffer_height; i++) {
-                    switch (tagfb->common.framebuffer_bpp) {
-                        case 8: {
-                            multiboot_uint8_t* pixel = fb
-                                + tagfb->common.framebuffer_pitch * i + i;
-                            *pixel = color;
-                        }
-                            break;
-                        case 15:
-                        case 16: {
-                            multiboot_uint16_t* pixel
-                                = fb + tagfb->common.framebuffer_pitch * i + 2 * i;
-                            *pixel = color;
-                        }
-                            break;
-                        case 24: {
-                            multiboot_uint32_t* pixel
-                                = fb + tagfb->common.framebuffer_pitch * i + 3 * i;
-                            *pixel = (color & 0xffffff) | (*pixel & 0xff000000);
-                        }
-                            break;
+                unsigned int offset;
 
-                        case 32: {
-                            multiboot_uint32_t* pixel
-                                = fb + tagfb->common.framebuffer_pitch * i + 4 * i;
-                            *pixel = color;
-                        }
-                            break;
+                switch (tagfb->common.framebuffer_bpp) {
+                    case 8: {
+                        offset = 1;
+                    }
+                        break;
+                    case 15:
+                    case 16: {
+                        offset = 2;
+                    }
+                        break;
+                    case 24: {
+                        offset = 4;
+                    }
+                        break;
+
+                    case 32: {
+                        offset = 4;
                     }
                 }
-                break;
+
+                for (unsigned int x = 0; x < tagfb->common.framebuffer_width; x++) {
+                    for (unsigned int y = 0; y < tagfb->common.framebuffer_height; y++) {
+                        multiboot_uint8_t* pixel = fb
+                            + tagfb->common.framebuffer_pitch * y + offset * x;
+                        memcpy(pixel, &color, offset);
+                    }
+                }
             }
         }
     }

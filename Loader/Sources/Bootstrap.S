@@ -21,8 +21,8 @@ mb_hdr:
     .short 0x5
     .short 0x0
     .long 20
-    .long 640
-    .long 480
+    .long 1920
+    .long 1080
     .long 32
     .balign 8
 
@@ -63,6 +63,9 @@ _start:
 
 	mov $stack_top, %esp
 	mov $stack_top, %ebp
+
+    push $0
+    popf
 
 	push	%ebx
 	call	lmain
