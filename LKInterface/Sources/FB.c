@@ -3,9 +3,9 @@
 
 FB_Colour getColour(FB* fb, uint8_t r, uint8_t g, uint8_t b) {
   return
-      ((b << fb->blue_mask_size) - 1) << fb->blue_field_position |
-      ((r << fb->red_mask_size) - 1) << fb->red_field_position |
-      ((g << fb->green_mask_size) - 1) << fb->green_field_position;
+      (r << fb->red_field_position) |
+      (b << fb->blue_field_position) |
+      (g << fb->green_field_position);
 }
 
 void putPixel(uint32_t x, uint32_t y, FB_Colour colour, FB* fb) {
