@@ -16,6 +16,7 @@ endif ()
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/Shared")
 
 add_subdirectory(libc)
+add_subdirectory(LKInterface)
 add_subdirectory(Kernel)
 # TODO: Implement the 64 bit loader
 add_subdirectory(Loader)

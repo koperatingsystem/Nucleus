@@ -1,8 +1,8 @@
 #ifndef KERNEL_ENTRY_H
 #define KERNEL_ENTRY_H
 
-#include "FB.h"
+#include <FB.h>
 
-void kOS_Main(FB framebuffer_info);
+void kOS_Main(FB* framebuffer_info);
 
 #endif

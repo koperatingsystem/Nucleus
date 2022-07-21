@@ -4,6 +4,6 @@
 #include <FB.h>
 #include <stdbool.h>
 
-void kOS_Main(FB framebuffer_info) {
+void kOS_Main(FB* framebuffer_info) {
     while (true) ;
 }

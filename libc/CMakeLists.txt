@@ -39,15 +39,15 @@ target_compile_options(kOS.libc
     PRIVATE -Wall -Werror
 )
 
-target_include_directories(kOS.libc PUBLIC Includes)
+target_include_directories(kOS.libc PUBLIC ${CMAKE_CURRENT_LIST_DIR}/Includes)
 
 target_link_options(kOS.libc.32 PRIVATE -nostdlib)
 
-target_compile_options(kOS.libc
+target_compile_options(kOS.libc.32
         PUBLIC -fshort-wchar -fno-builtin -ffreestanding -nostdinc -m32 -target i386-pc-none
         PRIVATE -Wall -Werror
         )
 
-target_include_directories(kOS.libc.32 PUBLIC Includes)
+target_include_directories(kOS.libc.32 PUBLIC ${CMAKE_CURRENT_LIST_DIR}/Includes)
 
 target_link_options(kOS.libc.32 PRIVATE -nostdlib)
