@@ -67,7 +67,10 @@ void lmain(const void *mbi) {
     }
       break;
     case MULTIBOOT_TAG_TYPE_MODULE: {
-
+        // TODO: Check if the module is the kernel
+        // 1) Check if it's an ELF File
+        // 2) Find the address of .magic (if it exists)
+        // 3) Check if 'kOS' is present
     }
     }
   }
