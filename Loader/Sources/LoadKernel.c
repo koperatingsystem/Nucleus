@@ -1,5 +1,3 @@
-//
-// Created by protobit on 7/20/22.
-//
+// SPDX-License-Identifier: MIT
 
 #include <LoadKernel.h>

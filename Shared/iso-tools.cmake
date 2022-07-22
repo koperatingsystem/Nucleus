@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/staging)
 
 find_program(XORRISO_PATH xorriso REQUIRED)

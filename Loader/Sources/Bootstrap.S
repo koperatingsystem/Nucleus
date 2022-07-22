@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 #include <multiboot2.h>
 
 .section .text

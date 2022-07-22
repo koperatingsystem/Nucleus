@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 .global GDTFlush
 .type GDTFlush, @function
 .extern pointerToGDT

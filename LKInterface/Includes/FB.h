@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 #ifndef LKI_FB_H
 #define LKI_FB_H
 

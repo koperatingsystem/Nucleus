@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 #include <GDT.h>
 
 struct GDTEntry GDT[3];

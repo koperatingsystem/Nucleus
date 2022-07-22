@@ -8,7 +8,6 @@
 void lmain(const void *mbi) {
   struct multiboot_tag *tag;
   FB fb;
-  // unsigned int mbi_size = *(unsigned int*)mbi;
 
   for (tag = (struct multiboot_tag *)(mbi + 8);
        tag->type != MULTIBOOT_TAG_TYPE_END;
