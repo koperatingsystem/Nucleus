@@ -3,4 +3,4 @@
 .section .magic
 magic:
     .align 4
-    .long 0x6B4F53
+    .long 0x534F6B

@@ -5,9 +5,21 @@
 #include <LoadKernel.h>
 #include <multiboot2.h>
 
+void fillScreen(FB_Colour colour, FB* fb) {
+    for (unsigned x = 0; x < fb->width; x++) {
+        for (unsigned y = 0; y < fb->height; y++) {
+            putPixel(x, y, colour, fb);
+        }
+    }
+}
+
 void lmain(const void *mbi) {
   struct multiboot_tag *tag;
-  FB fb;
+  FB fb = (FB) { .width = 0 };
+  uint8_t blue[] = {0, 0, 255};
+
+  int cur_idx = 0;
+  struct multiboot_tag_module* modules[64] = { 0 };
 
   for (tag = (struct multiboot_tag *)(mbi + 8);
        tag->type != MULTIBOOT_TAG_TYPE_END;
@@ -56,13 +68,9 @@ void lmain(const void *mbi) {
         .blue_mask_size = tagfb->framebuffer_blue_mask_size
       };
 
-      FB_Colour blue = getColour(&fb, 0, 0, 255);
+      FB_Colour fb_blue = getColour(&fb, blue[0], blue[1], blue[2]);
 
-      for (unsigned x = 0; x < fb.width; x++) {
-        for (unsigned y = 0; y < fb.height; y++) {
-          putPixel(x, y, blue, &fb);
-        }
-      }
+      fillScreen(fb_blue, &fb);
     }
       break;
     case MULTIBOOT_TAG_TYPE_MODULE: {
@@ -70,8 +78,35 @@ void lmain(const void *mbi) {
         // 1) Check if it's an ELF File
         // 2) Find the address of .magic (if it exists)
         // 3) Check if 'kOS' is present
+
+        struct multiboot_tag_module *module_tag =
+            (struct multiboot_tag_module *)tag;
+
+        modules[cur_idx] = module_tag;
+
+        cur_idx++;
     }
     }
+  }
+
+  for (int i = 0; i < 64 && (modules[i] != NULL); i++) {
+      ELF_Object obj;
+
+      struct multiboot_tag_module* module_tag = modules[i];
+
+      bool success = elf_create_object((char*) module_tag->mod_start,
+                                       module_tag->mod_end - module_tag->mod_start,
+                                       &obj
+                                       );
+
+      FB_Colour red = getColour(&fb, 255, 0, 0);
+      FB_Colour green = getColour(&fb, 0, 255, 0);
+
+      if (success) {
+          fillScreen(green, &fb);
+      } else {
+          fillScreen(red, &fb);
+      }
   }
 
   GDTInstall();

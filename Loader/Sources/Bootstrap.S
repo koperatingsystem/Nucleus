@@ -64,10 +64,6 @@ _start:
     je _exit
 
 	mov $stack_top, %esp
-	mov $stack_top, %ebp
-
-    push $0
-    popf
 
 	push	%ebx
 	call	lmain
