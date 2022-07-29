@@ -8,7 +8,7 @@ add_executable(kOS.Loader
         Sources/Bootstrap.S Sources/GDT.c Sources/GDT.S Sources/LoadKernel.c
         Sources/Main.c Includes/GDT.h Includes/LoadKernel.h)
 
-target_compile_options(kOS.Loader PRIVATE -m32 -target i386-pc-none -Wall -Werror -ffreestanding)
+target_compile_options(kOS.Loader PRIVATE -m32 -target i686-unknown-none -Wall -Werror -ffreestanding)
 target_include_directories(kOS.Loader PRIVATE Includes)
 
 target_link_libraries(kOS.Loader PUBLIC kOS.libc.32 kOS.LKI.32)

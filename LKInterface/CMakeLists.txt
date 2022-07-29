@@ -30,7 +30,7 @@ target_link_libraries(kOS.LKI PUBLIC kOS.libc)
 add_library(kOS.LKI.32 STATIC ${SOURCES})
 
 target_compile_options(kOS.LKI.32
-        PUBLIC ${COMPILE_OPTS_PUBLIC} -m32 -target i386-pc-none
+        PUBLIC ${COMPILE_OPTS_PUBLIC} -m32 -target i686-unknown-none
         PRIVATE ${COMPILE_OPTS_PRIVATE}
         )
 

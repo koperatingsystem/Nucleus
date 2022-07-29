@@ -1,7 +1,6 @@
 #include <FB.h>
 #include <ASMDefs.h>
 #include <GDT.h>
-
 #include <LoadKernel.h>
 #include <multiboot2.h>
 
