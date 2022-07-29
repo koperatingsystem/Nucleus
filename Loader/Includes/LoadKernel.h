@@ -32,6 +32,31 @@ typedef struct ELF_Header_Data
     uint16_t    section_header_index;
 } ELF_Header_Data;
 
+typedef struct ELF_Program_Header_Data
+{
+    uint32_t    type;
+    uint32_t    flags;
+    uint64_t    offset;
+    uint64_t    vaddr;
+    uint64_t    paddr;
+    uint64_t    file_size;
+    uint64_t    mem_size;
+    uint64_t    align;
+} ELF_Program_Header_Data;
+
+typedef struct ELF_Section_Header_Data {
+    uint32_t    name;
+    uint64_t    type;
+    uint64_t    flags;
+    uint64_t    addr;
+    uint64_t    offset;
+    uint64_t    size;
+    uint32_t    link;
+    uint32_t    info;
+    uint64_t    addralign;
+    uint64_t    entrysize;
+} ELF_Section_Header_Data;
+
 enum ELF_Class
 {
     ELF_Class_None,
@@ -78,27 +103,65 @@ enum ELF_Data_Encoding
 
 enum ELF_ABI
 {
-    ELF_ABI_System_V        = 0,
-    ELF_ABI_HP_UX           = 1,
-    ELF_ABI_NetBSD          = 2,
-    ELF_ABI_Linux           = 3,
-    ELF_ABI_Hurd            = 4,
-    ELF_ABI_Solaris         = 6,
-    ELF_ABI_AIX             = 7,
-    ELF_ABI_IRIX            = 8,
-    ELF_ABI_FreeBSD         = 9,
-    ELF_ABI_Tru64           = 10,
-    ELF_ABI_Novell_Modesto  = 11,
-    ELF_ABI_OpenBSD         = 12,
-    ELF_ABI_OpenVMS         = 13,
-    ELF_ABI_NonStop         = 14,
-    ELF_ABI_AROS            = 15,
-    ELF_ABI_Fenix           = 16,
-    ELF_ABI_CloudABI        = 17,
-    ELF_ABI_OpenVOS         = 18
+    ELF_ABI_System_V            = 0,
+    ELF_ABI_HP_UX               = 1,
+    ELF_ABI_NetBSD              = 2,
+    ELF_ABI_Linux               = 3,
+    ELF_ABI_Hurd                = 4,
+    ELF_ABI_Solaris             = 6,
+    ELF_ABI_AIX                 = 7,
+    ELF_ABI_IRIX                = 8,
+    ELF_ABI_FreeBSD             = 9,
+    ELF_ABI_Tru64               = 10,
+    ELF_ABI_Novell_Modesto      = 11,
+    ELF_ABI_OpenBSD             = 12,
+    ELF_ABI_OpenVMS             = 13,
+    ELF_ABI_NonStop             = 14,
+    ELF_ABI_AROS                = 15,
+    ELF_ABI_Fenix               = 16,
+    ELF_ABI_CloudABI            = 17,
+    ELF_ABI_OpenVOS             = 18
 };
 
 #define ELF_MAGIC "\x7f" "ELF"
+
+enum ELF_Program_Header_Type {
+    ELF_PH_Type_Null            = 0,
+    ELF_PH_Type_Load            = 1,
+    ELF_PH_Type_Dynamic         = 2,
+    ELF_PH_Type_Interpreter     = 3,
+    ELF_PH_Type_Note            = 4,
+    ELF_PH_Type_Shared_Lib      = 5,
+    ELF_PH_Type_PH_Table        = 6,
+    ELF_PH_Type_Thread_Local    = 7,
+    ELF_PH_Type_LOOS            = 0x60000000,
+    ELF_PH_Type_HIOS            = 0x6FFFFFFF,
+    ELF_PH_Type_LOPROC          = 0x70000000,
+    ELF_PH_Type_HIPROC          = 0x7FFFFFFF
+};
+
+enum ELF_Section_Header_Type {
+    ELF_SH_Type_Null            = 0,
+    ELF_SH_Type_Program_Data    = 1,
+    ELF_SH_Type_Symbol_Table    = 2,
+    ELF_SH_Type_String_Table    = 3,
+    ELF_SH_Type_Reloc_Table_WA  = 4,
+    ELF_SH_Type_Hash_Table      = 5,
+    ELF_SH_Type_Dyn_Link_Info   = 6,
+    ELF_SH_Type_Notes           = 7,
+    ELF_SH_Type_No_Bits         = 8,
+    ELF_SH_Type_Reloc_Table_NA  = 9,
+    ELF_SH_Type_Shared_Lib      = 10,
+    ELF_SH_Type_Dyn_Symbol      = 11,
+    ELF_SH_Type_Init_Array      = 14,
+    ELF_SH_Type_Fini_Array      = 15,
+    ELF_SH_Type_Preinit_Array   = 16,
+    ELF_SH_Type_Group           = 17,
+    ELF_SH_Type_Section_Idx     = 18,
+    ELF_SH_Type_Def_Number      = 19,
+    ELF_SH_Type_LOOS            = 0x60000000,
+};
+
 
 typedef struct ELF_Object {
     // Raw data
