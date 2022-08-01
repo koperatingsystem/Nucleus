@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 #pragma once
+#define _STDINT_H
 
 #include <sys/cdefs.h>
 
