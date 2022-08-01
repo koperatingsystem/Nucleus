@@ -88,9 +88,9 @@ void lmain(const void *mbi) {
     }
   }
 
-  for (int i = 0; i < 64 && (modules[i] != NULL); i++) {
-      ELF_Object obj;
+  ELF_Object obj;
 
+  for (int i = 0; i < 64 && (modules[i] != NULL); i++) {
       struct multiboot_tag_module* module_tag = modules[i];
 
       bool success = elf_create_object((char*) module_tag->mod_start,
@@ -98,13 +98,17 @@ void lmain(const void *mbi) {
                                        &obj
                                        );
 
-      FB_Colour red = getColour(&fb, 255, 0, 0);
-      FB_Colour green = getColour(&fb, 0, 255, 0);
-
       if (success) {
-          fillScreen(green, &fb);
-      } else {
-          fillScreen(red, &fb);
+          size_t magic_idx = elf_find_magic_header_index(&obj);
+          if (magic_idx == -1) {
+              continue;
+          }
+          else {
+              if (elf_check_magic_header_contents(&obj, magic_idx)) {
+                  // Found kOS!
+                  break;
+              }
+          }
       }
   }
 

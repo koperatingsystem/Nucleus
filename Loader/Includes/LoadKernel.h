@@ -29,7 +29,7 @@ typedef struct ELF_Header_Data
     uint16_t    program_header_entry_count;
     uint16_t    section_header_entry_size;
     uint16_t    section_header_entry_count;
-    uint16_t    section_header_index;
+    uint16_t    section_header_names_index;
 } ELF_Header_Data;
 
 typedef struct ELF_Program_Header_Data
@@ -46,7 +46,7 @@ typedef struct ELF_Program_Header_Data
 
 typedef struct ELF_Section_Header_Data {
     uint32_t    name;
-    uint64_t    type;
+    uint32_t    type;
     uint64_t    flags;
     uint64_t    addr;
     uint64_t    offset;
@@ -162,17 +162,51 @@ enum ELF_Section_Header_Type {
     ELF_SH_Type_LOOS            = 0x60000000,
 };
 
+enum ELF_Section_Header_Flags {
+    ELF_SH_Flags_Writable       = 0x1,
+    ELF_SH_Flags_Allocated      = 0x2,
+    ELF_SH_Flags_Exectuable     = 0x4,
+    ELF_SH_Flags_Merged         = 0x10,
+    ELF_SH_Flags_Strings        = 0x20,
+    ELF_SH_Flags_Link_Info      = 0x40,
+    ELF_SH_Flags_Link_Order     = 0x80,
+    ELF_SH_Flags_OS_Specific    = 0x100,
+    ELF_SH_Flags_Group          = 0x200,
+    ELF_SH_Flags_TLS            = 0x400,
+    ELF_SH_Flags_OS_Mask        = 0xFF000000,
+    ELF_SH_Flags_Proc_Mask      = 0xF0000000
+};
+
 
 typedef struct ELF_Object {
-    // Raw data
-
     ELF_Header_Data header_data;
 
-    // Processed data
+    ELF_Section_Header_Data section_headers[64];
+    size_t section_header_count;
 
-    // TODO: Add stuff
+    ELF_Program_Header_Data program_headers[64];
+    size_t program_header_count;
+
+    char* buffer;
+    size_t buffer_length;
 } ELF_Object;
 
 bool elf_create_object(char* buffer, size_t buffer_length, ELF_Object* object);
+
+bool elf_get_program_headers(ELF_Object* object);
+
+bool elf_get_section_headers(ELF_Object* object);
+
+bool elf_copy_headers(char* start, size_t size, size_t expected_size, size_t count,
+                      void* destination, size_t* dest_count);
+
+bool elf_check_magic_header_contents(ELF_Object* object, size_t index);
+
+size_t elf_find_magic_header_index(ELF_Object* object);
+
+bool elf_load_object(ELF_Object* object);
+
+// SWITCH TO LONG MODE BEFORE DOING THIS
+_Noreturn void elf_jump_to_entry_point(ELF_Object* object);
 
 #endif
