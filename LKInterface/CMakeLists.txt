@@ -9,7 +9,7 @@ set(SOURCES
         Includes/FB.h
         Includes/Entry.h
         Includes/multiboot2.h
-)
+        Includes/ssfn.h)
 
 set(COMPILE_OPTS_PUBLIC  -fshort-wchar -fno-builtin -ffreestanding -nostdinc)
 set(COMPILE_OPTS_PRIVATE -Wall -Werror)
