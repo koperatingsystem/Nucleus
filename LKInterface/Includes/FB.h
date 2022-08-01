@@ -28,4 +28,6 @@ FB_Colour getColour(FB* fb, uint8_t r, uint8_t g, uint8_t b);
 
 void putPixel(uint32_t x, uint32_t y, FB_Colour colour, FB* fb);
 
+void fillScreen(FB_Colour colour, FB* fb);
+
 #endif
