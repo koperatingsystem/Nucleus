@@ -12,6 +12,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(kOS.Loader PRIVATE LOW_RES_FB)
 endif()
 
+target_compile_definitions(kOS.Loader PRIVATE VERSION=${PROJECT_VERSION})
 
 target_compile_options(kOS.Loader PRIVATE -m32 -target i686-unknown-none -Wall -Werror -ffreestanding)
 target_include_directories(kOS.Loader PRIVATE Includes)

@@ -1,9 +1,13 @@
 // SPDX-License-Identifier: MIT
 
+#pragma once
+
 #ifndef LKI_FB_H
 #define LKI_FB_H
 
 #include <stdint.h>
+#include <multiboot2.h>
+#include <stddef.h>
 
 typedef struct FB {
     uint32_t height;
@@ -24,10 +28,14 @@ typedef struct FB {
 
 typedef uint32_t FB_Colour;
 
+void initSSFN(FB* fb, void* ssfn);
+
 FB_Colour getColour(FB* fb, uint8_t r, uint8_t g, uint8_t b);
 
 void putPixel(uint32_t x, uint32_t y, FB_Colour colour, FB* fb);
 
 void fillScreen(FB_Colour colour, FB* fb);
+
+void print(const char* str);
 
 #endif

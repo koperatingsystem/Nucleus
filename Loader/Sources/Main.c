@@ -3,7 +3,6 @@
 #include <GDT.h>
 #include <LoadKernel.h>
 #include <multiboot2.h>
-#include <ssfn.h>
 
 void lmain(const void* mbi) {
     struct multiboot_tag* tag;
@@ -84,16 +83,26 @@ void lmain(const void* mbi) {
         }
     }
 
-    void* ssfn;
+    void* ssfn = NULL;
 
     for (int i = 0; i < 64 && (modules[i] != NULL); i++) {
         if (memcmp((void*)modules[i]->mod_start, "SFN2", 4) == 0) {
-            ssfn = &modules[i]->mod_start;
+            ssfn = (void*)modules[i]->mod_start;
             break;
         }
     }
 
+    if (ssfn == NULL) _exit();
+
+    initSSFN(&fb, ssfn);
+
     ELF_Object obj;
+
+    print("Welcome to kOS.Loader\n");
+
+    print("Trying to find the kernel...\n");
+
+    bool found = 0;
 
     for (int i = 0; i < 64 && (modules[i] != NULL); i++) {
         struct multiboot_tag_module* module_tag = modules[i];
@@ -103,20 +112,31 @@ void lmain(const void* mbi) {
                                          &obj
         );
 
-        if (success) {
-            size_t magic_idx = elf_find_magic_header_index(&obj);
-            if (magic_idx == -1) {
-                continue;
-            } else {
-                if (elf_check_magic_header_contents(&obj, magic_idx)) {
-                    // Found kOS!
-                    break;
-                }
+        if (!success) {
+            continue;
+        }
+
+        size_t magic_idx = elf_find_magic_header_index(&obj);
+        if (magic_idx == -1) {
+            continue;
+        } else {
+            if (elf_check_magic_header_contents(&obj, magic_idx)) {
+                // Found kOS!
+                print("Found kOS!\n");
+                found = true;
+                break;
             }
         }
     }
 
+    if (!found) {
+        print("Couldn't find kOS!\n");
+        _exit();
+    }
+
     GDTInstall();
+
+    print("Loading kOS...\n");
 
     _exit();
 }
