@@ -81,22 +81,24 @@ bool elf_copy_headers(
 }
 
 bool elf_get_program_headers(ELF_Object* object) {
-    return elf_copy_headers(&object->buffer[object->header_data.program_header_offset],
-                     object->header_data.program_header_entry_size,
-                     sizeof(ELF_Program_Header_Data),
-                     object->header_data.program_header_entry_count,
-                     object->program_headers,
-                     &object->program_header_count
-                     );
+    return elf_copy_headers(
+        &object->buffer[object->header_data.program_header_offset],
+        object->header_data.program_header_entry_size,
+        sizeof(ELF_Program_Header_Data),
+        object->header_data.program_header_entry_count,
+        object->program_headers,
+        &object->program_header_count
+    );
 }
 
 bool elf_get_section_headers(ELF_Object* object) {
-    return elf_copy_headers(&object->buffer[object->header_data.section_header_offset],
-                            object->header_data.section_header_entry_size,
-                            sizeof(ELF_Section_Header_Data),
-                            object->header_data.section_header_entry_count,
-                            object->section_headers,
-                            &object->section_header_count
+    return elf_copy_headers(
+        &object->buffer[object->header_data.section_header_offset],
+        object->header_data.section_header_entry_size,
+        sizeof(ELF_Section_Header_Data),
+        object->header_data.section_header_entry_count,
+        object->section_headers,
+        &object->section_header_count
     );
 }
 
@@ -110,17 +112,14 @@ bool elf_create_object(char* buffer, size_t buffer_length, ELF_Object* object) {
     object->buffer = buffer;
     object->buffer_length = buffer_length;
 
-    success &= (memcmp(&object->header_data.magic, ELF_MAGIC, 4) == 0);
-
-    success &= object->header_data.machine == ELF_Machine_Type_AMD64;
-
-    success &= object->header_data.binary_class == ELF_Class_64;
-
-    success &= object->header_data.data_encoding == ELF_Data_Encoding_Little;
-
-    success &= object->header_data.abi == ELF_ABI_System_V;
-
-    success &= object->header_data.type == ELF_Executable_Type_Executable;
+    success &= (
+        (memcmp(&object->header_data.magic, ELF_MAGIC, 4) == 0) &&
+        object->header_data.machine == ELF_Machine_Type_AMD64 &&
+        object->header_data.binary_class == ELF_Class_64 &&
+        object->header_data.data_encoding == ELF_Data_Encoding_Little &&
+        object->header_data.abi == ELF_ABI_System_V &&
+        object->header_data.type == ELF_Executable_Type_Executable
+    );
 
     if (success) {
         success &= elf_get_program_headers(object);
