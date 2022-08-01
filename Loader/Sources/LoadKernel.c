@@ -123,8 +123,8 @@ bool elf_create_object(char* buffer, size_t buffer_length, ELF_Object* object) {
     success &= object->header_data.type == ELF_Executable_Type_Executable;
 
     if (success) {
-        success &= elf_get_program_headers(buffer, buffer_length, object);
-        success &= elf_get_section_headers(buffer, buffer_length, object);
+        success &= elf_get_program_headers(object);
+        success &= elf_get_section_headers(object);
     }
 
     return success;
