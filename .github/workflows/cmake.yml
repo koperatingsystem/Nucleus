@@ -18,10 +18,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     container:
-        image: koperatingsystem/nucleus:main
-        credentials:
-            username: ${{ github.actor }}
-            password: ${{ secrets.github_token }}
+        image: ghcr.io/koperatingsystem/nucleus:main
 
     steps:
     - uses: actions/checkout@v3
