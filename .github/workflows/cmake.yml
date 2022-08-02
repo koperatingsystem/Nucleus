@@ -27,7 +27,9 @@ jobs:
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja -DTARGET_ARCH=${{ matrix.arch }}
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target build-iso
+      run: |
+        cd ${{github.workspace}}/build
+        ninja build-iso
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
