@@ -9,3 +9,6 @@ include(iso-tools)
 
 add_subdirectory(LKInterface)
 add_subdirectory(Loader)
+
+add_file_iso(Shared/u_vga16.sfn boot)
+add_file_iso(Shared/grub.cfg boot)

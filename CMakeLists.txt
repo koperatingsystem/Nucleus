@@ -25,3 +25,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/Shared")
 add_subdirectory(Agnostic)
 add_subdirectory(Specific)
 
+if(EXISTS Specific/${TARGET_ARCH}/post.cmake)
+    include(Specific/${TARGET_ARCH}/post.cmake)
+endif()
