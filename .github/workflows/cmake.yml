@@ -17,8 +17,6 @@ jobs:
 
     name: Build
     runs-on: ubuntu-22.04
-    container:
-        image: ghcr.io/koperatingsystem/nucleus:main
 
     steps:
     - uses: actions/checkout@v3
