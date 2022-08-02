@@ -16,7 +16,7 @@ jobs:
         arch: ["x86"]
 
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container:
         image: ghcr.io/koperatingsystem/nucleus:main
 
