@@ -21,6 +21,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install dependencies
+      run: |
+        sudo apt install xorriso clang grub-common ninja-build mtools lld -y
+
     - name: Make build directory
       run: mkdir ${{github.workspace}}/build
 
