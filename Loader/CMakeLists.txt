@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.0)
 project(kOS.Loader LANGUAGES ASM C VERSION 1.0.0)
 
 add_executable(kOS.Loader
-        Sources/Bootstrap.S Sources/GDT.c Sources/GDT.S Sources/LoadKernel.c
-        Sources/Main.c Includes/GDT.h Includes/LoadKernel.h)
+        Sources/Bootstrap.S Sources/LoadKernel.c
+        Sources/Main.c Includes/LoadKernel.h)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(kOS.Loader PRIVATE LOW_RES_FB)

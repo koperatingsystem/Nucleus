@@ -1,6 +1,5 @@
 #include <FB.h>
 #include <ASMDefs.h>
-#include <GDT.h>
 #include <LoadKernel.h>
 #include <multiboot2.h>
 
@@ -68,11 +67,6 @@ void lmain(const void* mbi) {
             }
                 break;
             case MULTIBOOT_TAG_TYPE_MODULE: {
-                // TODO: Check if the module is the kernel
-                // 1) Check if it's an ELF File
-                // 2) Find the address of .magic (if it exists)
-                // 3) Check if 'kOS' is present
-
                 struct multiboot_tag_module* module_tag =
                     (struct multiboot_tag_module*) tag;
 
@@ -134,9 +128,9 @@ void lmain(const void* mbi) {
         _exit();
     }
 
-    GDTInstall();
-
     print("Loading kOS...\n");
+
+
 
     _exit();
 }
