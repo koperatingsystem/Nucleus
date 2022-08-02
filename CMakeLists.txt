@@ -1,9 +1,16 @@
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.0)
-project(kOS.Nucleus C)
 
-set(CMAKE_C_STANDARD 99)
+set(TARGET_ARCH "NOTSET" CACHE STRING "Target architecture")
+
+if (TARGET_ARCH STREQUAL "NOTSET")
+    message(FATAL_ERROR "You must set the target architecture")
+endif()
+
+set(CMAKE_TOOLCHAIN_FILE "Specific/${TARGET_ARCH}/kos-toolchain.cmake")
+
+project(kOS.Nucleus C)
 
 if (NOT CMAKE_TOOLCHAIN_FILE)
     message(FATAL_ERROR "To build kOS, you must use the kOS toolchain file")
@@ -15,10 +22,6 @@ endif ()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/Shared")
 
-add_subdirectory(libc)
-add_subdirectory(LKInterface)
-add_subdirectory(Kernel)
-add_subdirectory(Loader)
+add_subdirectory(Agnostic)
+add_subdirectory(Specific)
 
-add_file_iso(${CMAKE_CURRENT_LIST_DIR}/Shared/grub.cfg boot/grub/)
-add_file_iso(${CMAKE_CURRENT_LIST_DIR}/Shared/u_vga16.sfn boot/)

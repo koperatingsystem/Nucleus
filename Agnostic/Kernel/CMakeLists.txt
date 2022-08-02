@@ -10,14 +10,10 @@ add_executable(kOS.Kernel
     Sources/Magic.S
 )
 
-include(iso-tools)
-
 target_compile_options(kOS.Kernel PRIVATE -m64 -mcmodel=large -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -Wall -Werror -ffreestanding)
 target_include_directories(kOS.Kernel PRIVATE Includes ../Shared/LoaderKernel)
 
 target_link_options(kOS.Kernel PRIVATE -nostdlib -T ${CMAKE_CURRENT_LIST_DIR}/Sources/link.ld -z max-page-size=0x1000)
-target_link_libraries(kOS.Kernel PRIVATE kOS.libc kOS.LKI)
+target_link_libraries(kOS.Kernel PRIVATE kOS.libc kOS.LKI kOS.LKI.Headers)
 
 set_target_properties(kOS.Kernel PROPERTIES LINK_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Sources/link.ld)
-
-add_target_output_iso(kOS.Kernel boot)

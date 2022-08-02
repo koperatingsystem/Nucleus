@@ -6,7 +6,6 @@
 #define LKI_FB_H
 
 #include <stdint.h>
-#include <multiboot2.h>
 #include <stddef.h>
 
 typedef struct FB {

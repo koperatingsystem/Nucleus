@@ -6,8 +6,6 @@ project(kOS.LKI LANGUAGES ASM C VERSION 1.0.0)
 
 set(SOURCES
         Sources/FB.c
-        Includes/FB.h
-        Includes/Entry.h
         Includes/multiboot2.h
         Includes/ssfn.h)
 
@@ -25,7 +23,7 @@ target_include_directories(kOS.LKI PUBLIC Includes)
 
 target_link_options(kOS.LKI PRIVATE -nostdlib)
 
-target_link_libraries(kOS.LKI PUBLIC kOS.libc)
+target_link_libraries(kOS.LKI PUBLIC kOS.libc kOS.LKI.Headers)
 
 add_library(kOS.LKI.32 STATIC ${SOURCES})
 
@@ -38,5 +36,5 @@ target_include_directories(kOS.LKI.32 PUBLIC Includes)
 
 target_link_options(kOS.LKI.32 PRIVATE -nostdlib)
 
-target_link_libraries(kOS.LKI.32 PUBLIC kOS.libc.32)
+target_link_libraries(kOS.LKI.32 PUBLIC kOS.libc.32 kOS.LKI.Headers)
 
