@@ -1,4 +1,4 @@
-name: CMake (x86)
+name: CMake
 
 on:
   push:
