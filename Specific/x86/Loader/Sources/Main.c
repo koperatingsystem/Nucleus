@@ -22,26 +22,10 @@ void lmain(const void* mbi) {
 
                 if (tagfb->common.framebuffer_type != MULTIBOOT_FRAMEBUFFER_TYPE_RGB) _exit();
 
-                unsigned int offset;
+                unsigned int offset = 4;
 
-                switch (tagfb->common.framebuffer_bpp) {
-                    case 8: {
-                        offset = 1;
-                    }
-                        break;
-                    case 15:
-                    case 16: {
-                        offset = 2;
-                    }
-                        break;
-                    case 24: {
-                        offset = 3;
-                    }
-                        break;
-
-                    case 32: {
-                        offset = 4;
-                    }
+                if (tagfb->common.framebuffer_bpp != 4) {
+                    _exit();
                 }
 
                 fb = (FB) {
