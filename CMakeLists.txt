@@ -8,7 +8,7 @@ if (TARGET_ARCH STREQUAL "NOTSET")
     message(FATAL_ERROR "You must set the target architecture")
 endif()
 
-set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Specific/${TARGET_ARCH}/kos-toolchain.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/Specific/${TARGET_ARCH}/options.cmake)
 
 project(kOS.Nucleus C)
 
