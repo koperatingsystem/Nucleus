@@ -2,7 +2,7 @@
 
 #include <LoadKernel.h>
 
-size_t elf_find_magic_header_index(ELF_Object* object) {
+size_t ElfFindMagicHeaderIndex(ELF_Object* object) {
     for (int i = 0; i < object->section_header_count; i++) {
         if (i == object->header_data.section_header_names_index) {
             continue;
@@ -32,7 +32,7 @@ size_t elf_find_magic_header_index(ELF_Object* object) {
     return -1;
 }
 
-bool elf_check_magic_header_contents(ELF_Object* object, size_t index) {
+bool ElfCheckMagicHeaderContents(ELF_Object* object, size_t index) {
     if (index == -1) {
         return false;
     }
@@ -52,7 +52,7 @@ bool elf_check_magic_header_contents(ELF_Object* object, size_t index) {
     return true;
 }
 
-bool elf_copy_headers(
+bool ElfCopyHeaders(
         char* start, size_t size, size_t expected_size, size_t count,
         void* destination, size_t* dest_count
     )
@@ -80,8 +80,8 @@ bool elf_copy_headers(
     return true;
 }
 
-bool elf_get_program_headers(ELF_Object* object) {
-    return elf_copy_headers(
+bool ElfGetProgramHeaders(ELF_Object* object) {
+    return ElfCopyHeaders(
         &object->buffer[object->header_data.program_header_offset],
         object->header_data.program_header_entry_size,
         sizeof(ELF_Program_Header_Data),
@@ -91,8 +91,8 @@ bool elf_get_program_headers(ELF_Object* object) {
     );
 }
 
-bool elf_get_section_headers(ELF_Object* object) {
-    return elf_copy_headers(
+bool ElfGetSectionHeaders(ELF_Object* object) {
+    return ElfCopyHeaders(
         &object->buffer[object->header_data.section_header_offset],
         object->header_data.section_header_entry_size,
         sizeof(ELF_Section_Header_Data),
@@ -102,7 +102,7 @@ bool elf_get_section_headers(ELF_Object* object) {
     );
 }
 
-bool elf_create_object(char* buffer, size_t buffer_length, ELF_Object* object) {
+bool ElfCreateObject(char* buffer, size_t buffer_length, ELF_Object* object) {
     if (object == NULL || buffer == NULL || buffer_length < sizeof(ELF_Header_Data)) return false;
 
     memcpy(&object->header_data, buffer, sizeof(ELF_Header_Data));
@@ -122,8 +122,8 @@ bool elf_create_object(char* buffer, size_t buffer_length, ELF_Object* object) {
     );
 
     if (success) {
-        success &= elf_get_program_headers(object);
-        success &= elf_get_section_headers(object);
+        success &= ElfGetProgramHeaders(object);
+        success &= ElfGetSectionHeaders(object);
     }
 
     return success;

@@ -191,22 +191,22 @@ typedef struct ELF_Object {
     size_t buffer_length;
 } ELF_Object;
 
-bool elf_create_object(char* buffer, size_t buffer_length, ELF_Object* object);
+bool ElfCreateObject(char* buffer, size_t buffer_length, ELF_Object* object);
 
-bool elf_get_program_headers(ELF_Object* object);
+bool ElfGetProgramHeaders(ELF_Object* object);
 
-bool elf_get_section_headers(ELF_Object* object);
+bool ElfGetSectionHeaders(ELF_Object* object);
 
-bool elf_copy_headers(char* start, size_t size, size_t expected_size, size_t count,
-                      void* destination, size_t* dest_count);
+bool ElfCopyHeaders(char* start, size_t size, size_t expected_size, size_t count,
+                    void* destination, size_t* dest_count);
 
-bool elf_check_magic_header_contents(ELF_Object* object, size_t index);
+bool ElfCheckMagicHeaderContents(ELF_Object* object, size_t index);
 
-size_t elf_find_magic_header_index(ELF_Object* object);
+size_t ElfFindMagicHeaderIndex(ELF_Object* object);
 
-bool elf_load_object(ELF_Object* object);
+bool ElfLoadObject(ELF_Object* object);
 
 // SWITCH TO LONG MODE BEFORE DOING THIS
-_Noreturn void elf_jump_to_entry_point(ELF_Object* object);
+_Noreturn void ElfJumpToEntryPoint(ELF_Object* object);
 
 #endif

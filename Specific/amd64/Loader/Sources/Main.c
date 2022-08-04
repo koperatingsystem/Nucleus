@@ -3,6 +3,8 @@
 #include <LoadKernel.h>
 #include <multiboot2.h>
 
+extern void initSSFN(FB* fb, void* ssfn);
+
 void lmain(const void* mbi) {
     struct multiboot_tag* tag;
     FB fb = (FB) {.width = 0};
@@ -45,9 +47,9 @@ void lmain(const void* mbi) {
                     .blue_mask_size = tagfb->framebuffer_blue_mask_size
                 };
 
-                FB_Colour fb_blue = getColour(&fb, blue[0], blue[1], blue[2]);
+                FB_Colour fb_blue = FbGetColour(&fb, blue[0], blue[1], blue[2]);
 
-                fillScreen(fb_blue, &fb);
+                FbFillScreen(fb_blue, &fb);
             }
                 break;
             case MULTIBOOT_TAG_TYPE_MODULE: {
@@ -76,31 +78,31 @@ void lmain(const void* mbi) {
 
     ELF_Object obj;
 
-    print(&fb, "Welcome to kOS.Loader\n");
+    FbPrint(&fb, "Welcome to kOS.Loader\n");
 
-    print(&fb, "Trying to find the kernel...\n");
+    FbPrint(&fb, "Trying to find the kernel...\n");
 
     bool found = false;
 
     for (int i = 0; i < 64 && (modules[i] != NULL); i++) {
         struct multiboot_tag_module* module_tag = modules[i];
 
-        bool success = elf_create_object((char*) module_tag->mod_start,
-                                         module_tag->mod_end - module_tag->mod_start,
-                                         &obj
+        bool success = ElfCreateObject((char*) module_tag->mod_start,
+                                       module_tag->mod_end - module_tag->mod_start,
+                                       &obj
         );
 
         if (!success) {
             continue;
         }
 
-        size_t magic_idx = elf_find_magic_header_index(&obj);
+        size_t magic_idx = ElfFindMagicHeaderIndex(&obj);
         if (magic_idx == -1) {
             continue;
         } else {
-            if (elf_check_magic_header_contents(&obj, magic_idx)) {
+            if (ElfCheckMagicHeaderContents(&obj, magic_idx)) {
                 // Found kOS!
-                print(&fb, "Found kOS!\n");
+                FbPrint(&fb, "Found kOS!\n");
                 found = true;
                 break;
             }
@@ -108,11 +110,11 @@ void lmain(const void* mbi) {
     }
 
     if (!found) {
-        printError(&fb, "Couldn't find kOS!\n");
+        FbPrintError(&fb, "Couldn't find kOS!\n");
         _exit();
     }
 
-    print(&fb, "Loading kOS...\n");
+    FbPrint(&fb, "Loading kOS...\n");
 
 
 

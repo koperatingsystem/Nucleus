@@ -5,6 +5,6 @@
 
 #include <FB.h>
 
-void kOS_Main(FB* framebuffer_info);
+void KaOSMain(FB* framebuffer_info);
 
 #endif
