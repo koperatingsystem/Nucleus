@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        arch: ["x86"]
+        arch: ["amd64"]
 
     name: Build
     runs-on: ubuntu-22.04

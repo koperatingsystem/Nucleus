@@ -24,7 +24,7 @@ void lmain(const void* mbi) {
 
                 unsigned int offset = 4;
 
-                if (tagfb->common.framebuffer_bpp != 4) {
+                if (tagfb->common.framebuffer_bpp != 32) {
                     _exit();
                 }
 
@@ -76,11 +76,11 @@ void lmain(const void* mbi) {
 
     ELF_Object obj;
 
-    print("Welcome to kOS.Loader\n");
+    print(&fb, "Welcome to kOS.Loader\n");
 
-    print("Trying to find the kernel...\n");
+    print(&fb, "Trying to find the kernel...\n");
 
-    bool found = 0;
+    bool found = false;
 
     for (int i = 0; i < 64 && (modules[i] != NULL); i++) {
         struct multiboot_tag_module* module_tag = modules[i];
@@ -100,7 +100,7 @@ void lmain(const void* mbi) {
         } else {
             if (elf_check_magic_header_contents(&obj, magic_idx)) {
                 // Found kOS!
-                print("Found kOS!\n");
+                print(&fb, "Found kOS!\n");
                 found = true;
                 break;
             }
@@ -108,11 +108,11 @@ void lmain(const void* mbi) {
     }
 
     if (!found) {
-        print("Couldn't find kOS!\n");
+        printError(&fb, "Couldn't find kOS!\n");
         _exit();
     }
 
-    print("Loading kOS...\n");
+    print(&fb, "Loading kOS...\n");
 
 
 

@@ -11,9 +11,9 @@ void initSSFN(FB* fb, void* ssfn) {
     ssfn_src = ssfn;
 
     ssfn_dst.ptr = fb->data;
-    ssfn_dst.fg = 0xFFFFFFFF;
+    ssfn_dst.fg = getColour(fb, 0, 0, 0);
     ssfn_dst.bg = 0x00000000;
-    ssfn_dst.p = fb->width * 4;
+    ssfn_dst.p = fb->width * fb->offset;
     ssfn_dst.x = 0;
     ssfn_dst.y = 0;
 }
@@ -39,9 +39,15 @@ void fillScreen(FB_Colour colour, FB* fb) {
     }
 }
 
-void print(const char* str) {
+void print(FB* fb, const char* str) {
     size_t str_len = strlen(str);
     for (size_t i = 0; i < str_len; i++) {
         ssfn_putc(str[i]);
     }
+}
+
+void printError(FB* fb, const char* str) {
+    ssfn_dst.fg = getColour(fb, 255, 0, 0);
+    print(fb, str);
+    ssfn_dst.fg = 0xFFFFFFFF;
 }

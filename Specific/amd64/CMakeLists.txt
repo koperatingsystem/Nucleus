@@ -10,5 +10,5 @@ include(iso-tools)
 add_subdirectory(LKInterface)
 add_subdirectory(Loader)
 
-add_file_iso(Shared/u_vga16.sfn boot)
-add_file_iso(Shared/grub.cfg boot)
+add_file_iso(${CMAKE_CURRENT_LIST_DIR}/Shared/u_vga16.sfn boot)
+add_file_iso(${CMAKE_CURRENT_LIST_DIR}/Shared/grub.cfg boot/grub)

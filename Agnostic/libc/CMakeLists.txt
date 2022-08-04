@@ -47,7 +47,7 @@ target_compile_options(kOS.libc.32
         PUBLIC -fshort-wchar -fno-builtin -ffreestanding -nostdinc -m32 -target i686-unknown-none
         PRIVATE -Wall -Werror
         )
-
+ 
 target_include_directories(kOS.libc.32 PUBLIC ${CMAKE_CURRENT_LIST_DIR}/Includes)
 
 target_link_options(kOS.libc.32 PRIVATE -nostdlib)

@@ -35,6 +35,8 @@ void putPixel(uint32_t x, uint32_t y, FB_Colour colour, FB* fb);
 
 void fillScreen(FB_Colour colour, FB* fb);
 
-void print(const char* str);
+void print(FB* fb, const char* str);
+
+void printError(FB* fb, const char* str);
 
 #endif

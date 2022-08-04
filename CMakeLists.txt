@@ -8,7 +8,7 @@ if (TARGET_ARCH STREQUAL "NOTSET")
     message(FATAL_ERROR "You must set the target architecture")
 endif()
 
-set(CMAKE_TOOLCHAIN_FILE "Specific/${TARGET_ARCH}/kos-toolchain.cmake")
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Specific/${TARGET_ARCH}/kos-toolchain.cmake)
 
 project(kOS.Nucleus C)
 
@@ -25,6 +25,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/Shared")
 add_subdirectory(Agnostic)
 add_subdirectory(Specific)
 
-if(EXISTS Specific/${TARGET_ARCH}/post.cmake)
+if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/Specific/${TARGET_ARCH}/post.cmake)
     include(Specific/${TARGET_ARCH}/post.cmake)
 endif()

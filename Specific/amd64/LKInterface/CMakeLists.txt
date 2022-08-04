@@ -15,7 +15,7 @@ set(COMPILE_OPTS_PRIVATE -Wall -Werror)
 add_library(kOS.LKI STATIC ${SOURCES})
 
 target_compile_options(kOS.LKI
-        PUBLIC ${COMPILE_OPTS_PUBLIC}
+        PUBLIC ${COMPILE_OPTS_PUBLIC} -mcmodel=large
         PRIVATE ${COMPILE_OPTS_PRIVATE}
         )
 

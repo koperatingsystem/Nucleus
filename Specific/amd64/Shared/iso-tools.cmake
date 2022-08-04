@@ -19,10 +19,11 @@ function(add_file_iso file target)
 endfunction()
 
 function(add_target_output_iso target target_dir)
-    add_custom_command(
-            TARGET ${target} POST_BUILD VERBATIM
+    add_custom_target(
+            copy-${target} ALL
+            DEPENDS ${target}
             COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:${target}>" ${CMAKE_BINARY_DIR}/staging/${target_dir}
     )
 
-    add_dependencies(build-iso ${target})
+    add_dependencies(build-iso copy-${target})
 endfunction()
