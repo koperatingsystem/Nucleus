@@ -35,6 +35,10 @@ void FbFillScreen(FB_Colour colour, FB* fb);
 
 void FbPrint(FB* fb, const char* str);
 
+void FbPrintColouredBg(FB* fb, const char* str, FB_Colour foreground, FB_Colour background);
+
+void FbPrintColoured(FB* fb, const char* str, FB_Colour foreground);
+
 void FbPrintError(FB* fb, const char* str);
 
 #endif

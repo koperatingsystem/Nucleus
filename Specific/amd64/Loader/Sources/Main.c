@@ -7,8 +7,8 @@ extern void initSSFN(FB* fb, void* ssfn);
 
 void lmain(const void* mbi) {
     struct multiboot_tag* tag;
+
     FB fb = (FB) {.width = 0};
-    uint8_t blue[] = {0, 0, 255};
 
     int cur_idx = 0;
     struct multiboot_tag_module* modules[64] = {0};
@@ -47,7 +47,7 @@ void lmain(const void* mbi) {
                     .blue_mask_size = tagfb->framebuffer_blue_mask_size
                 };
 
-                FB_Colour fb_blue = FbGetColour(&fb, blue[0], blue[1], blue[2]);
+                FB_Colour fb_blue = FbGetColour(&fb, 0, 0, 255);
 
                 FbFillScreen(fb_blue, &fb);
             }
@@ -116,7 +116,13 @@ void lmain(const void* mbi) {
 
     FbPrint(&fb, "Loading kOS...\n");
 
-
+    if (!ElfLoadObject(&obj)) {
+        FbPrintError(&fb, "Couldn't load kOS!\n");
+        _exit();
+    }
+    else {
+        FbPrint(&fb, "Loaded kOS!\n");
+    }
 
     _exit();
 }

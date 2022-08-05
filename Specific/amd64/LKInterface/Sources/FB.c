@@ -6,6 +6,7 @@
 #define SSFN_CONSOLEBITMAP_CONTROL
 #define SSFN_CONSOLEBITMAP_TRUECOLOR
 #include <ssfn.h>
+#include <FB.h>
 
 void initSSFN(FB* fb, void* ssfn) {
     ssfn_src = ssfn;
@@ -20,7 +21,7 @@ void initSSFN(FB* fb, void* ssfn) {
 
 FB_Colour FbGetColour(FB* fb, uint8_t r, uint8_t g, uint8_t b) {
     return
-        (r << fb->red_field_position) |
+            (r << fb->red_field_position) |
             (b << fb->blue_field_position) |
             (g << fb->green_field_position);
 }
@@ -47,7 +48,19 @@ void FbPrint(FB* fb, const char* str) {
 }
 
 void FbPrintError(FB* fb, const char* str) {
-    ssfn_dst.fg = FbGetColour(fb, 255, 0, 0);
+    FbPrintColoured(fb, str, FbGetColour(fb, 255, 0, 0));
+}
+
+void FbPrintColouredBg(FB* fb, const char* str, FB_Colour foreground, FB_Colour background) {
+    ssfn_dst.fg = foreground;
+    ssfn_dst.bg = background;
+    FbPrint(fb, str);
+    ssfn_dst.fg = FbGetColour(fb, 255, 255, 255);
+    ssfn_dst.bg = FbGetColour(fb, 0, 0, 255);
+}
+
+void FbPrintColoured(FB* fb, const char* str, FB_Colour foreground) {
+    ssfn_dst.fg = foreground;
     FbPrint(fb, str);
     ssfn_dst.fg = FbGetColour(fb, 255, 255, 255);
 }

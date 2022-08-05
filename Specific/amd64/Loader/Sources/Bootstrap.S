@@ -23,13 +23,8 @@ mb_hdr:
     .short 0x5
     .short 0x0
     .long 20
-#ifdef LOW_RES_FB
-    .long 640
-    .long 480
-#else
     .long 1920
     .long 1080
-#endif
     .long 32
     .balign 8
 
