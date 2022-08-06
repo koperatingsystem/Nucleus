@@ -7,7 +7,9 @@ project(kOS.LKI LANGUAGES ASM C VERSION 1.0.0)
 set(SOURCES
         Sources/FB.c
         Includes/multiboot2.h
-        Includes/ssfn.h)
+        Includes/ssfn.h 
+        Includes/FBAdditional.h
+)
 
 add_library(kOS.LKI STATIC ${SOURCES})
 

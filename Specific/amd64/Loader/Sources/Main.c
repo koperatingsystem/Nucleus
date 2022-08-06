@@ -1,9 +1,8 @@
 #include <FB.h>
+#include <FBAdditional.h>
 #include <ASMDefs.h>
 #include <LoadKernel.h>
 #include <multiboot2.h>
-
-extern void initSSFN(FB* fb, void* ssfn);
 
 void lmain(const void* mbi) {
     struct multiboot_tag* tag;

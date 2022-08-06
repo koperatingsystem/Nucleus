@@ -7,6 +7,7 @@
 #define SSFN_CONSOLEBITMAP_TRUECOLOR
 #include <ssfn.h>
 #include <FB.h>
+#include <FBAdditional.h>
 
 void initSSFN(FB* fb, void* ssfn) {
     ssfn_src = ssfn;
