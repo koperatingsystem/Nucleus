@@ -143,8 +143,7 @@ bool ElfLoadObject(ELF_Object* object) {
         }
     }
 
-    // Start from 1 to skip the Null section
-    for (int i = 1; i < object->program_header_count; i++) {
+    for (int i = 0; i < object->program_header_count; i++) {
         ELF_Program_Header_Data* program = &object->program_headers[i];
 
         if (program->type == ELF_PH_Type_Load) {
