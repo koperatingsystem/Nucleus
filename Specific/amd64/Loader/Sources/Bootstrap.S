@@ -2,6 +2,12 @@
 
 #include <multiboot2.h>
 
+.section .bss
+.align 16
+stack_bottom:
+.skip 16384 # 16 KiB
+stack_top:
+
 .section .text
     .balign 8
     .align 4
@@ -48,13 +54,6 @@ mb_hdr:
     .long 0x8
 mb_hdr_end:
 
-.section .bss
-.align 16
-stack_bottom:
-.skip 16384 # 16 KiB
-stack_top:
-
-.section .text
 .global _start
 .type _start, @function
 _start:

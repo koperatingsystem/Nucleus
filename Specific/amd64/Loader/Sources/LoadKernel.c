@@ -130,7 +130,7 @@ bool ElfCreateObject(char* buffer, size_t buffer_length, ELF_Object* object) {
 }
 
 bool ElfLoadObject(ELF_Object* object) {
-    /*for (int i = 0; i < object->section_header_count; i++) {
+    for (int i = 0; i < object->section_header_count; i++) {
         ELF_Section_Header_Data* section = &object->section_headers[i];
 
         if (section->type == ELF_SH_Type_No_Bits) {
@@ -141,7 +141,7 @@ bool ElfLoadObject(ELF_Object* object) {
                 section->offset = (int)object->buffer - (int)section->addr;
             }
         }
-    }*/
+    }
 
     // Start from 1 to skip the Null section
     for (int i = 1; i < object->program_header_count; i++) {

@@ -18,6 +18,8 @@ target_compile_options(kOS.Specific.amd64.Loader PRIVATE ${SHARED_COMPILE_OPTION
 target_include_directories(kOS.Specific.amd64.Loader PRIVATE Includes)
 
 target_link_libraries(kOS.Specific.amd64.Loader PUBLIC kOS.libc.Loader kOS.LKI.32 kOS.LKI.Headers)
-target_link_options(kOS.Specific.amd64.Loader PRIVATE -nostdlib -z max-page-size=0x1000)
+target_link_options(kOS.Specific.amd64.Loader PRIVATE -nostdlib -z max-page-size=0x1000 -T ${CMAKE_CURRENT_LIST_DIR}/Sources/link.ld)
+set_target_properties(kOS.Specific.amd64.Loader PROPERTIES LINK_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/Sources/link.ld)
+
 
 add_target_output_iso(kOS.Specific.amd64.Loader boot)

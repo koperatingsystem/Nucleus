@@ -1,4 +1,4 @@
-set(SHARED_COMPILE_OPTIONS ${SHARED_COMPILE_OPTIONS} -m64 -mcmodel=large -mno-red-zone -Wall -Werror -ffreestanding)
+set(SHARED_COMPILE_OPTIONS ${SHARED_COMPILE_OPTIONS} -m64 -mcmodel=large -mno-red-zone -mno-sse -mno-mmx -Wall -Werror -ffreestanding)
 set(SHARED_LINK_OPTIONS ${SHARED_LINK_OPTIONS} -nostdlib)
 
 set(KERNEL_COMPILE_OPTIONS ${SHARED_COMPILE_OPTIONS} ${KERNEL_COMPILE_OPTIONS})
