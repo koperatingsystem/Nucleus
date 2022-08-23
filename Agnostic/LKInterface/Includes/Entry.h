@@ -3,8 +3,8 @@
 #ifndef KERNEL_ENTRY_H
 #define KERNEL_ENTRY_H
 
-#include <FB.h>
+#include <LKI.h>
 
-void KaOSMain(FB* framebuffer_info);
+void kOSMain(LKI* lki);
 
 #endif

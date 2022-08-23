@@ -1,4 +1,4 @@
-#include <FB.h>
+#include <LKI.h>
 #include <FBAdditional.h>
 #include <ASMDefs.h>
 #include <LoadKernel.h>
@@ -77,9 +77,9 @@ void lmain(const void* mbi) {
 
     ELF_Object obj;
 
-    FbPrint(&fb, "Welcome to kOS.Loader\n");
+    LogPrint(&fb, "Welcome to kOS.Loader\n");
 
-    FbPrint(&fb, "Trying to find the kernel...\n");
+    LogPrint(&fb, "Trying to find the kernel...\n");
 
     bool found = false;
 
@@ -101,7 +101,7 @@ void lmain(const void* mbi) {
         } else {
             if (ElfCheckMagicHeaderContents(&obj, magic_idx)) {
                 // Found kOS!
-                FbPrint(&fb, "Found kOS!\n");
+                LogPrint(&fb, "Found kOS!\n");
                 found = true;
                 break;
             }
@@ -109,18 +109,18 @@ void lmain(const void* mbi) {
     }
 
     if (!found) {
-        FbPrintError(&fb, "Couldn't find kOS!\n");
+        LogPrint(&fb, "Couldn't find kOS!\n");
         _exit();
     }
 
-    FbPrint(&fb, "Loading kOS...\n");
+    LogPrint(&fb, "Loading kOS...\n");
 
     if (!ElfLoadObject(&obj)) {
-        FbPrintError(&fb, "Couldn't load kOS!\n");
+        LogPrint(&fb, "Couldn't load kOS!\n");
         _exit();
     }
     else {
-        FbPrint(&fb, "Loaded kOS!\n");
+        LogPrint(&fb, "Loaded kOS!\n");
     }
 
     _exit();
