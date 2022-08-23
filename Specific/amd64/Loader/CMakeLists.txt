@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.0)
 project(kOS.Specific.amd64.Loader LANGUAGES ASM C VERSION 1.0.0)
 
 add_executable(kOS.Specific.amd64.Loader
-        Sources/Bootstrap.S Sources/LoadKernel.c
-        Sources/Main.c Includes/LoadKernel.h)
+        Sources/Bootstrap.S Sources/LoadKernel.c Sources/GDT.c Sources/GDT.S
+        Sources/Main.c Includes/LoadKernel.h Includes/GDT.h)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(kOS.Specific.amd64.Loader PRIVATE LOW_RES_FB)

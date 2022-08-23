@@ -3,8 +3,11 @@
 #include <ASMDefs.h>
 #include <LoadKernel.h>
 #include <multiboot2.h>
+#include <GDT.h>
 
 void lmain(const void* mbi) {
+    GDTInstall();
+
     struct multiboot_tag* tag;
 
     FB fb = (FB) {.width = 0};
