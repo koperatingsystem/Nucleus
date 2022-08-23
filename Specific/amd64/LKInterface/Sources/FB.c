@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 
-#include <FB.h>
+#include <LKI.h>
 #include <string.h>
 
 #define SSFN_CONSOLEBITMAP_CONTROL
 #define SSFN_CONSOLEBITMAP_TRUECOLOR
+
 #include <ssfn.h>
-#include <FB.h>
+#include <LKI.h>
 #include <FBAdditional.h>
 
 void initSSFN(FB* fb, void* ssfn) {
@@ -41,27 +42,9 @@ void FbFillScreen(FB_Colour colour, FB* fb) {
     }
 }
 
-void FbPrint(FB* fb, const char* str) {
+void LogPrint(Log log, const char* str) {
     size_t str_len = strlen(str);
     for (size_t i = 0; i < str_len; i++) {
         ssfn_putc(str[i]);
     }
-}
-
-void FbPrintError(FB* fb, const char* str) {
-    FbPrintColoured(fb, str, FbGetColour(fb, 255, 0, 0));
-}
-
-void FbPrintColouredBg(FB* fb, const char* str, FB_Colour foreground, FB_Colour background) {
-    ssfn_dst.fg = foreground;
-    ssfn_dst.bg = background;
-    FbPrint(fb, str);
-    ssfn_dst.fg = FbGetColour(fb, 255, 255, 255);
-    ssfn_dst.bg = FbGetColour(fb, 0, 0, 255);
-}
-
-void FbPrintColoured(FB* fb, const char* str, FB_Colour foreground) {
-    ssfn_dst.fg = foreground;
-    FbPrint(fb, str);
-    ssfn_dst.fg = FbGetColour(fb, 255, 255, 255);
 }
