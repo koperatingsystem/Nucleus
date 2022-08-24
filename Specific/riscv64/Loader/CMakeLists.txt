@@ -11,14 +11,10 @@ add_executable(kOS.Specific.riscv64.Loader
 target_compile_definitions(kOS.Specific.riscv64.Loader PRIVATE VERSION=${PROJECT_VERSION})
 
 target_compile_options(kOS.Specific.riscv64.Loader PRIVATE ${SHARED_COMPILE_OPTIONS})
-target_include_directories(kOS.Specific.riscv64.Loader PRIVATE Includes ${OPENSBI_INSTALL_DIR}/usr/include/)
+target_include_directories(kOS.Specific.riscv64.Loader PRIVATE Includes)
 
 target_link_libraries(kOS.Specific.riscv64.Loader PUBLIC
         kOS.libc.Loader kOS.LKI kOS.LKI.Headers
-        ${OPENSBI_INSTALL_DIR}/src/opensbi/install/usr/lib64/lp64/libsbi.a ${OPENSBI_INSTALL_DIR}/src/opensbi/install/usr/lib64/lp64/libsbiutils.a
-        ${OPENSBI_INSTALL_DIR}/src/opensbi/build/platform/generic/lib/libplatsbi.a
 )
 
 target_link_options(kOS.Specific.riscv64.Loader PRIVATE -nostdlib)
-
-add_dependencies(kOS.Specific.riscv64.Loader opensbi)
