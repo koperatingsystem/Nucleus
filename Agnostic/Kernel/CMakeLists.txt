@@ -6,8 +6,7 @@ project(kOS.Kernel LANGUAGES ASM C VERSION 1.0.0)
 
 add_executable(kOS.Kernel
     Sources/Main.c
-    Sources/Bootstrap.S
-    Sources/Magic.S
+    ${KERNEL_ADDITIONAL_FILES}
 )
 
 target_compile_options(kOS.Kernel PRIVATE ${KERNEL_COMPILE_OPTIONS})
