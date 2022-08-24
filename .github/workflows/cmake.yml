@@ -17,6 +17,9 @@ jobs:
                 -   arch: "amd64"
                     outfile: "boot.iso"
 
+                -   arch: "riscv64"
+                    outfile: "Specific/riscv64/Loader/kOS.Specific.riscv64.Loader"
+
         name: Build
         runs-on: ubuntu-22.04
 
