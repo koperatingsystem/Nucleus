@@ -14,4 +14,6 @@ target_compile_options(kOS.Kernel PRIVATE ${KERNEL_COMPILE_OPTIONS})
 target_link_options(kOS.Kernel PRIVATE ${KERNEL_LINK_OPTIONS})
 target_link_libraries(kOS.Kernel PRIVATE kOS.libc kOS.LKI kOS.LKI.Headers)
 
-set_target_properties(kOS.Kernel PROPERTIES LINK_DEPENDS ${KERNEL_LINK_DEPENDS})
+if (KERNEL_LINK_DEPENDS)
+    set_target_properties(kOS.Kernel PROPERTIES LINK_DEPENDS ${KERNEL_LINK_DEPENDS})
+endif()
