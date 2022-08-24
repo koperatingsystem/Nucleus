@@ -3,6 +3,8 @@
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_VERSION 1)
 
+set(CMAKE_ASM_COMPILER clang)
+set(CMAKE_ASM_COMPILER_TARGET amd64-pc-none)
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_C_COMPILER_TARGET amd64-pc-none)
 set(CMAKE_CXX_COMPILER clang++)
