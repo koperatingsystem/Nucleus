@@ -16,9 +16,11 @@ jobs:
                 include:
                 -   arch: "amd64"
                     outfile: "boot.iso"
+                    target: "build-iso"
 
                 -   arch: "riscv64"
                     outfile: "Specific/riscv64/Loader/kOS.Specific.riscv64.Loader"
+                    target: ""
 
         name: Build
         runs-on: ubuntu-22.04
@@ -39,7 +41,7 @@ jobs:
 
             -   name: Build
                 working-directory: ${{github.workspace}}/build
-                run: ninja build-iso
+                run: ninja ${{ matrix.target }}
 
             -   name: Upload a Build Artifact
                 uses: actions/upload-artifact@v3.1.0
